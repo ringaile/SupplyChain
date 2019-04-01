@@ -15,12 +15,12 @@ contract ConsumerRole {
 
   // In the constructor make the address that deploys this contract the 1st consumer
   constructor() public {
-    _addFarmer(msg.sender);
+    _addConsumer(msg.sender);
   }
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyConsumer() {
-    require(isFarmer(msg.sender));
+    require(isConsumer(msg.sender));
     _;
   }
 
