@@ -20,7 +20,7 @@ contract ConsumerRole {
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyConsumer() {
-        require(isFarmer(msg.sender));
+    require(isFarmer(msg.sender));
     _;
   }
 
