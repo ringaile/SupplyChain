@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.24;
 // Define a contract 'Supplychain'
 contract SupplyChain {
 
@@ -85,7 +85,7 @@ contract SupplyChain {
     _;
     uint _price = items[_upc].productPrice;
     uint amountToReturn = msg.value - _price;
-    items[_upc].consumerID.transfer(amountToReturn);
+    //items[_upc].consumerID.transfer(amountToReturn);
   }
 
   // Define a modifier that checks if an item.state of a upc is Harvested
@@ -128,6 +128,8 @@ contract SupplyChain {
   modifier received(uint _upc) {
     require(items[_upc].itemState == State.Received);
     _;
+  }
+
   constructor() public payable {
     owner = msg.sender;
     sku = 1;
@@ -146,18 +148,19 @@ contract SupplyChain {
   // Define a function 'kill' if required
   function kill() public {
     if (msg.sender == owner) {
-      selfdestruct(owner);
+      selfdestruct(msg.sender);
     }
   }
 
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
-  function harvestItem(uint _upc, address _originFarmerID, string _originFarmName, string _originFarmInformation, string  _originFarmLatitude, string  _originFarmLongitude, string  _productNotes) public 
+  function harvestItem(uint _upc, address _originFarmerID, string memory _originFarmName, string memory _originFarmInformation, string  memory _originFarmLatitude, string memory _originFarmLongitude, string memory _productNotes) public 
   {
     // Add the new item as part of Harvest
-    Item memory item = new Item();
+    Item memory item;
     item.upc = _upc;
-    item.state = defaultState;
+    item.itemState = defaultState;
     item.originFarmerID = _originFarmerID;
+    item.originFarmName = _originFarmName;
     item.originFarmInformation = _originFarmInformation;
     item.originFarmLatitude = _originFarmLatitude;
     item.originFarmLongitude = _originFarmLongitude;
@@ -178,7 +181,7 @@ contract SupplyChain {
   {
     // Update the appropriate fields
     Item storage item = items[_upc];
-    item.state = State.Processed;
+    item.itemState = State.Processed;
     // Emit the appropriate event
     emit Processed(_upc);
   }
@@ -192,7 +195,7 @@ contract SupplyChain {
   {
     // Update the appropriate fields
     Item storage item = items[_upc];
-    item.state = State.Packed;
+    item.itemState = State.Packed;
     // Emit the appropriate event
     emit Packed(_upc);
   }
@@ -207,7 +210,7 @@ contract SupplyChain {
     // Update the appropriate fields
     Item storage item = items[_upc];
     item.productPrice = _price;
-    item.state = State.ForSale;
+    item.itemState = State.ForSale;
     // Emit the appropriate event
     emit ForSale(_upc);
   }
@@ -226,12 +229,12 @@ contract SupplyChain {
     
     // Update the appropriate fields - ownerID, distributorID, itemState
     Item storage item = items[_upc];
-    address owner = item.ownerID'
+    //address owner = item.ownerID;
     item.ownerID = msg.sender;
     item.distributorID = msg.sender;
-    item.state = State.ForSale;
+    item.itemState = State.ForSale;
     // Transfer money to farmer
-    owner.transfer(item.productPrice);
+    //owner.transfer(item.productPrice);
     // emit the appropriate event
     emit Sold(_upc);
   }
@@ -240,13 +243,13 @@ contract SupplyChain {
   // Use the above modifers to check if the item is sold
   function shipItem(uint _upc) public 
     // Call modifier to check if upc has passed previous supply chain stage
-    Sold(_upc)
+    sold(_upc)
     // Call modifier to verify caller of this function
     verifyCaller(msg.sender)
     {
     // Update the appropriate fields
     Item storage item = items[_upc];
-    item.state = State.Shipped;
+    item.itemState = State.Shipped;
     // Emit the appropriate event
     emit Shipped(_upc);
   }
@@ -255,14 +258,14 @@ contract SupplyChain {
   // Use the above modifiers to check if the item is shipped
   function receiveItem(uint _upc) public 
     // Call modifier to check if upc has passed previous supply chain stage
-    Shipped(_upc)
+    shipped(_upc)
     // Access Control List enforced by calling Smart Contract / DApp
     {
     // Update the appropriate fields - ownerID, retailerID, itemState
     Item storage item = items[_upc];
     item.ownerID = msg.sender;
     item.retailerID = msg.sender;
-    item.state = State.Received;
+    item.itemState = State.Received;
     // Emit the appropriate event
     emit Received(_upc);
   }
@@ -271,14 +274,14 @@ contract SupplyChain {
   // Use the above modifiers to check if the item is received
   function purchaseItem(uint _upc) public 
     // Call modifier to check if upc has passed previous supply chain stage
-    Received(_upc)
+    received(_upc)
     // Access Control List enforced by calling Smart Contract / DApp
     {
     // Update the appropriate fields - ownerID, consumerID, itemState
     Item storage item = items[_upc];
     item.ownerID = msg.sender;
     item.retailerID = msg.sender;
-    item.state = State.Purchased;
+    item.itemState = State.Purchased;
     // Emit the appropriate event
     emit Purchased(_upc);
   }
@@ -290,31 +293,32 @@ contract SupplyChain {
   uint    itemUPC,
   address ownerID,
   address originFarmerID,
-  string  originFarmName,
-  string  originFarmInformation,
-  string  originFarmLatitude,
-  string  originFarmLongitude
+  string  memory originFarmName,
+  string  memory originFarmInformation,
+  string  memory originFarmLatitude
+  //string  memory originFarmLongitude
   ) 
   {
   // Assign values to the 8 parameters
-    uint itemSKU = items[_upc].sku;
-    uint itemUPC = items[_upc].upc;
-    address ownerID = items[_upc].ownerID;
-    address originFarmerID = items[_upc].originFarmerID;
-    string originFarmName = items[_upc].originFarmName;
-    string originFarmInformation = items[_ups].originFarmInformation;
-    string originFarmLatitude = items[_ups].originFarmLatitude;
-    string originFarmLongitude = items[_ups].originFarmLongitude;    
+    Item storage item = items[_upc];
+    uint tempItemSKU = item.sku;
+    uint tempItemUPC = item.upc;
+    address tempOwnerID = item.ownerID;
+    address tempOriginFarmerID = item.originFarmerID;
+    string memory tempOriginFarmName = item.originFarmName;
+    string memory tempOriginFarmInformation = item.originFarmInformation;
+    string memory tempOriginFarmLatitude = item.originFarmLatitude;
+    //string memory tempOriginFarmLongitude = item.originFarmLongitude;    
   return 
   (
-  itemSKU,
-  itemUPC,
-  ownerID,
-  originFarmerID,
-  originFarmName,
-  originFarmInformation,
-  originFarmLatitude,
-  originFarmLongitude
+  tempItemSKU,
+  tempItemUPC,
+  tempOwnerID,
+  tempOriginFarmerID,
+  tempOriginFarmName,
+  tempOriginFarmInformation,
+  tempOriginFarmLatitude
+  //tempOriginFarmLongitude
   );
   }
 
@@ -324,35 +328,36 @@ contract SupplyChain {
   uint    itemSKU,
   uint    itemUPC,
   uint    productID,
-  string  productNotes,
+  string  memory productNotes,
   uint    productPrice,
   uint    itemState,
-  address distributorID,
-  address retailerID,
-  address consumerID
+  address distributorID
+  //address retailerID
+  //address consumerID
   ) 
   {
     // Assign values to the 9 parameters
-    uint itemSKU = items[_upc].sku;
-    uint itemUPC = items[_upc].upc;
-    address productID = items[_upc].productID;
-    address productNotes = items[_upc].productNotes;
-    string productPrice = items[_upc].productPrice;
-    string itemState = items[_ups].itemState;
-    string distributorID = items[_ups].distributorID;
-    string retailerID = items[_ups].retailerID;
-    string consumerID = items[_ups].consumerID;
+    Item storage item = items[_upc];
+    uint tempItemSKU = item.sku;
+    uint tempItemUPC = item.upc;
+    uint tempProductID = item.productID;
+    string storage tempProductNotes = item.productNotes;
+    uint tempProductPrice = item.productPrice;
+    uint tempItemState = uint(item.itemState);
+    address tempDistributorID = item.distributorID;
+    //address tempRetailerID = item.retailerID;
+    //address tempConsumerID = item.consumerID;
   return 
   (
-  itemSKU,
-  itemUPC,
-  productID,
-  productNotes,
-  productPrice,
-  itemState,
-  distributorID,
-  retailerID,
-  consumerID
+  tempItemSKU,
+  tempItemUPC,
+  tempProductID,
+  tempProductNotes,
+  tempProductPrice,
+  tempItemState,
+  tempDistributorID
+  //tempRetailerID
+  //tempConsumerID
   );
   }
 }
