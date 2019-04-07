@@ -194,7 +194,11 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
+<<<<<<< HEAD
                         "referencedDeclaration": 1482,
+=======
+                        "referencedDeclaration": 1476,
+>>>>>>> 70dae9cd058bb246a2a774b890ea6ed1a9a2cf54
                         "src": "151:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -278,7 +282,11 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
+<<<<<<< HEAD
                         "referencedDeclaration": 1482,
+=======
+                        "referencedDeclaration": 1476,
+>>>>>>> 70dae9cd058bb246a2a774b890ea6ed1a9a2cf54
                         "src": "202:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -840,7 +848,11 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
+<<<<<<< HEAD
                         "referencedDeclaration": 1482,
+=======
+                        "referencedDeclaration": 1476,
+>>>>>>> 70dae9cd058bb246a2a774b890ea6ed1a9a2cf54
                         "src": "151:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -924,7 +936,11 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
+<<<<<<< HEAD
                         "referencedDeclaration": 1482,
+=======
+                        "referencedDeclaration": 1476,
+>>>>>>> 70dae9cd058bb246a2a774b890ea6ed1a9a2cf54
                         "src": "202:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1366,6 +1382,7 @@
     "name": "solc",
     "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
   },
+<<<<<<< HEAD
   "networks": {
     "4447": {
       "events": {},
@@ -1376,6 +1393,11 @@
   },
   "schemaVersion": "3.0.1",
   "updatedAt": "2019-04-07T09:13:12.923Z",
+=======
+  "networks": {},
+  "schemaVersion": "3.0.1",
+  "updatedAt": "2019-04-07T08:58:10.770Z",
+>>>>>>> 70dae9cd058bb246a2a774b890ea6ed1a9a2cf54
   "devdoc": {
     "methods": {}
   },
