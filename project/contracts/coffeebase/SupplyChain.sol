@@ -330,10 +330,10 @@ contract SupplyChain {
   uint    productID,
   string  memory productNotes,
   uint    productPrice,
-  uint    itemState,
-  address distributorID
-  //address retailerID
-  //address consumerID
+  uint    itemState
+ // address distributorID,
+ // address retailerID,
+ // address consumerID
   ) 
   {
     // Assign values to the 9 parameters
@@ -344,9 +344,9 @@ contract SupplyChain {
     string storage tempProductNotes = item.productNotes;
     uint tempProductPrice = item.productPrice;
     uint tempItemState = uint(item.itemState);
-    address tempDistributorID = item.distributorID;
-    //address tempRetailerID = item.retailerID;
-    //address tempConsumerID = item.consumerID;
+//    address tempDistributorID = item.distributorID;
+//    address tempRetailerID = item.retailerID;
+//    address tempConsumerID = item.consumerID;
   return 
   (
   tempItemSKU,
@@ -354,10 +354,10 @@ contract SupplyChain {
   tempProductID,
   tempProductNotes,
   tempProductPrice,
-  tempItemState,
-  tempDistributorID
-  //tempRetailerID
-  //tempConsumerID
+  tempItemState
+//  tempDistributorID,
+//  tempRetailerID,
+//  tempConsumerID
   );
   }
 }
