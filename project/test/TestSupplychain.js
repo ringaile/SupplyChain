@@ -19,7 +19,7 @@ contract('SupplyChain', function(accounts) {
     const distributorID = accounts[2]
     const retailerID = accounts[3]
     const consumerID = accounts[4]
-    const emptyAddress = '0x00000000000000000000000000000000000000'
+    const emptyAddress = '0x0000000000000000000000000000000000000000'
 
     ///Available Accounts
     ///==================
@@ -66,8 +66,8 @@ contract('SupplyChain', function(accounts) {
         // Verify the result set
         assert.equal(resultBufferOne[0], 0, 'Error: Invalid item SKU')
         assert.equal(resultBufferOne[1], 1, 'Error: Invalid item UPC')
-        assert.equal(resultBufferOne[2], 0x00000000000000000000000000000000000000, 'Error: Missing or Invalid ownerID')
-        //assert.equal(resultBufferOne[3], 0x4116bb136dC6bB9293e47d159f4E6c4188588A64, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferOne[2], emptyAddress, 'Error: Missing or Invalid ownerID')
+        assert.equal(resultBufferOne[3], accounts[1], 'Error: Missing or Invalid originFarmerID')
         assert.equal(resultBufferOne[4], originFarmName, 'Error: Missing or Invalid originFarmName')
         assert.equal(resultBufferOne[5], originFarmInformation, 'Error: Missing or Invalid originFarmInformation')
         assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
@@ -116,8 +116,8 @@ contract('SupplyChain', function(accounts) {
         // Verify the result set
         assert.equal(resultBufferOne[0], 0, 'Error: Invalid item SKU')
         assert.equal(resultBufferOne[1], 1, 'Error: Invalid item UPC')
-        assert.equal(resultBufferOne[2], 0x00000000000000000000000000000000000000, 'Error: Missing or Invalid ownerID')
-        //assert.equal(resultBufferOne[3], 0x4116bb136dC6bB9293e47d159f4E6c4188588A64, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferOne[2], emptyAddress, 'Error: Missing or Invalid ownerID')
+        assert.equal(resultBufferOne[3], accounts[1], 'Error: Missing or Invalid originFarmerID')
         assert.equal(resultBufferOne[4], originFarmName, 'Error: Missing or Invalid originFarmName')
         assert.equal(resultBufferOne[5], originFarmInformation, 'Error: Missing or Invalid originFarmInformation')
         assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
@@ -167,8 +167,8 @@ contract('SupplyChain', function(accounts) {
         // Verify the result set
         assert.equal(resultBufferOne[0], 0, 'Error: Invalid item SKU')
         assert.equal(resultBufferOne[1], 1, 'Error: Invalid item UPC')
-        assert.equal(resultBufferOne[2], 0x00000000000000000000000000000000000000, 'Error: Missing or Invalid ownerID')
-        //assert.equal(resultBufferOne[3], 0x4116bb136dC6bB9293e47d159f4E6c4188588A64, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferOne[2], emptyAddress, 'Error: Missing or Invalid ownerID')
+        assert.equal(resultBufferOne[3], accounts[1], 'Error: Missing or Invalid originFarmerID')
         assert.equal(resultBufferOne[4], originFarmName, 'Error: Missing or Invalid originFarmName')
         assert.equal(resultBufferOne[5], originFarmInformation, 'Error: Missing or Invalid originFarmInformation')
         assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
@@ -218,8 +218,8 @@ contract('SupplyChain', function(accounts) {
         // Verify the result set
         assert.equal(resultBufferOne[0], 0, 'Error: Invalid item SKU')
         assert.equal(resultBufferOne[1], 1, 'Error: Invalid item UPC')
-        //assert.equal(resultBufferOne[2], 0x00000000000000000000000000000000000000, 'Error: Missing or Invalid ownerID')
-        assert.equal(resultBufferOne[3], 0x4116bb136dC6bB9293e47d159f4E6c4188588A64, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferOne[2], emptyAddress, 'Error: Missing or Invalid ownerID')
+        assert.equal(resultBufferOne[3], accounts[1], 'Error: Missing or Invalid originFarmerID')
         assert.equal(resultBufferOne[4], originFarmName, 'Error: Missing or Invalid originFarmName')
         assert.equal(resultBufferOne[5], originFarmInformation, 'Error: Missing or Invalid originFarmInformation')
         assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
@@ -269,8 +269,8 @@ contract('SupplyChain', function(accounts) {
         // Verify the result set
         assert.equal(resultBufferOne[0], 0, 'Error: Invalid item SKU')
         assert.equal(resultBufferOne[1], 1, 'Error: Invalid item UPC')
-        assert.equal(resultBufferOne[2], 0x3629A4bcF269170F445bb63105b7Ecc2079EF61A, 'Error: Missing or Invalid ownerID')
-        //assert.equal(resultBufferOne[3], 0x4116bb136dC6bB9293e47d159f4E6c4188588A64, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferOne[2], accounts[0], 'Error: Missing or Invalid ownerID')
+        assert.equal(resultBufferOne[3], accounts[1], 'Error: Missing or Invalid originFarmerID')
         assert.equal(resultBufferOne[4], originFarmName, 'Error: Missing or Invalid originFarmName')
         assert.equal(resultBufferOne[5], originFarmInformation, 'Error: Missing or Invalid originFarmInformation')
         assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
